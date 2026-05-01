@@ -18,6 +18,7 @@ const HIDDEN_REPO_PATTERNS = [
   "config",
   "github-profile",
   "profile-readme",
+  "my-portfolio",
 ];
 
 root.dataset.theme = storedTheme || preferredTheme;
