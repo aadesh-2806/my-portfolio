@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Dev Vault: study material for DSA, Spring Boot, DB Design, and System Design by Aadesh Agrawal."
+    />
+    <title>Dev Vault | Aadesh Agrawal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles/dev-vault.css" />
+  </head>
+  <body>
+    <div class="study-noise" aria-hidden="true"></div>
+
+    <header class="study-header">
+      <button class="study-brand" type="button" data-study-home-link aria-label="Dev Vault home">
+        <span>DV</span>
+        Dev Vault
+      </button>
+      <nav class="study-nav" aria-label="Study sections">
+        <a href="index.html">Portfolio</a>
+        <button type="button" data-course="dsa">DSA</button>
+        <button type="button" data-course="springboot">Spring Boot</button>
+        <button class="is-active" type="button" data-course="db-design">DB Design</button>
+        <button type="button" data-course="lld">LLD</button>
+        <button type="button" data-course="hld">HLD</button>
+      </nav>
+      <button class="study-theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode">
+        <span class="sun" aria-hidden="true"></span>
+        <span class="moon" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main>
+      <section class="study-home" data-study-home>
+        <section class="study-hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Dev Vault</p>
+            <h1>Engineering notes for interview-ready fundamentals.</h1>
+            <p>
+              Focused notes for DSA, Spring Boot, database design, and system
+              design. Open a subject from the header and track completion as you
+              move through each topic.
+            </p>
+          </div>
+        </section>
+
+        <section class="home-progress" aria-label="Study progress">
+          <article class="progress-row" role="button" tabindex="0" data-progress-course="dsa">
+            <div>
+              <strong>DSA</strong>
+              <p>Problem patterns, complexity, and revision checkpoints.</p>
+            </div>
+            <span>0/7 done</span>
+            <i style="--progress: 0%"></i>
+          </article>
+          <article class="progress-row" role="button" tabindex="0" data-progress-course="springboot">
+            <div>
+              <strong>Spring Boot</strong>
+              <p>Production backend concepts from APIs to observability.</p>
+            </div>
+            <span>0/6 done</span>
+            <i style="--progress: 0%"></i>
+          </article>
+          <article class="progress-row" role="button" tabindex="0" data-progress-course="db-design">
+            <div>
+              <strong>DB Design</strong>
+              <p>Schema modeling practice with visual solutions and trade-offs.</p>
+            </div>
+            <span>0/15 done</span>
+            <i style="--progress: 0%"></i>
+          </article>
+          <article class="progress-row" role="button" tabindex="0" data-progress-course="lld">
+            <div>
+              <strong>LLD</strong>
+              <p>Clean object design, SOLID, patterns, and machine coding.</p>
+            </div>
+            <span>0/5 done</span>
+            <i style="--progress: 0%"></i>
+          </article>
+          <article class="progress-row" role="button" tabindex="0" data-progress-course="hld">
+            <div>
+              <strong>HLD</strong>
+              <p>Architecture thinking across scale, storage, and reliability.</p>
+            </div>
+            <span>0/6 done</span>
+            <i style="--progress: 0%"></i>
+          </article>
+        </section>
+
+      </section>
+
+      <section class="course-view course-placeholder" data-course-view="dsa" hidden>
+        <div class="study-back-row">
+          <button class="study-back-icon" type="button" data-study-home-link aria-label="Back">
+            <span aria-hidden="true">←</span>
+          </button>
+        </div>
+        <div>
+          <p class="eyebrow">DSA</p>
+          <h2>Coming soon.</h2>
+          <p>DSA notes will be added after the current DB Design and LLD sections are complete.</p>
+        </div>
+      </section>
+
+      <section class="course-view spring-workspace" data-course-view="springboot" hidden>
+        <div class="spring-root" data-spring-root>
+          <div class="empty-state">Loading Spring Boot course...</div>
+        </div>
+      </section>
+
+      <section class="course-view credit-card" data-course-view="springboot" hidden>
+        <p class="eyebrow">Credit</p>
+        <h2>Spring Boot course source</h2>
+        <p>
+          The Spring Boot study material is based on Spring Boot, Hibernate, and
+          Spring course material by <strong>Chad Darby</strong> from luv2code. For
+          the original learning material, visit
+          <a href="https://www.udemy.com/course/spring-hibernate-tutorial" target="_blank" rel="noreferrer">Spring Boot course</a>.
+        </p>
+      </section>
+
+      <section class="course-view db-workspace is-menu-only" data-course-view="db-design" data-db-workspace hidden>
+        <div class="study-back-row">
+          <button class="study-back-icon" type="button" data-study-home-link aria-label="Back">
+            <span aria-hidden="true">←</span>
+          </button>
+        </div>
+        <div class="db-topbar subject-home-head">
+          <div>
+            <p class="eyebrow">DB Design</p>
+            <h2>Think in entities, relationships, and trade-offs.</h2>
+          </div>
+          <div class="subject-home-copy">
+            <p>
+              Pick a real-world product, break the requirements into tables, then compare
+              your model with a visual answer and a short design explanation.
+            </p>
+          </div>
+        </div>
+
+        <div class="study-tools">
+          <label class="search-box">
+            <input type="search" placeholder="Search Instagram, ecommerce, booking..." data-study-search />
+          </label>
+          <div class="view-switch" aria-label="Solution visibility" data-db-view-switch>
+            <button class="is-active" type="button" data-view-mode="question">Problem</button>
+            <button type="button" data-view-mode="answer">Solution</button>
+            <button type="button" data-combined-popup>Problem + Solution</button>
+          </div>
+        </div>
+
+        <div class="db-layout">
+          <aside class="case-list" aria-label="DB Design cases" data-case-list></aside>
+
+          <article class="case-detail" data-case-detail>
+            <div class="empty-state">Loading study material...</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="course-view lld-workspace" data-course-view="lld" hidden>
+        <div class="lld-root" data-lld-root>
+          <div class="empty-state">Loading LLD material...</div>
+        </div>
+      </section>
+
+      <section class="course-view credit-card" data-course-view="lld" hidden>
+        <p class="eyebrow">Credit</p>
+        <h2>Low-Level Design learning sources</h2>
+        <p>
+          The LLD study material is based on low-level design concepts, design
+          patterns, and machine-coding problems taught by <strong>Coder Army</strong>,
+          <strong>Shrayansh</strong>, and <strong>Shubh Patel</strong>.
+        </p>
+        <p>
+          For the original learning material, visit the source playlists by
+          <a href="https://www.youtube.com/playlist?list=PLQEaRBV9gAFvzp6XhcNFpk1WdOcyVo9qT" target="_blank" rel="noreferrer">Coder Army</a>,
+          <a href="https://www.youtube.com/playlist?list=PL6W8uoQQ2c61X_9e6Net0WdYZidm7zooW" target="_blank" rel="noreferrer">Shrayansh</a>,
+          and
+          <a href="https://www.youtube.com/playlist?list=PLYPO3T7Sl63u7uLLpiKCMXnRjeFIhUAvk" target="_blank" rel="noreferrer">Shubh Patel</a>.
+        </p>
+      </section>
+
+      <section class="course-view hld-workspace" data-course-view="hld" hidden>
+        <div class="hld-root" data-hld-root>
+          <div class="empty-state">Loading HLD cheat sheet...</div>
+        </div>
+      </section>
+
+      <section class="course-view credit-card" data-course-view="hld" hidden>
+        <p class="eyebrow">Credit</p>
+        <h2>High-Level Design cheat sheet source</h2>
+        <p>
+          Cheat sheet material is credited to
+          <strong>Anindya Sankar Dasgupta</strong> from Interview With Bunny.
+          Visit the source website
+          <a href="https://www.interviewwithbunny.com/" target="_blank" rel="noreferrer">here</a>.
+        </p>
+      </section>
+
+      <section class="course-view credit-card" data-course-view="db-design" hidden>
+        <p class="eyebrow">Credit</p>
+        <h2>Database design question source</h2>
+        <p>
+          The DB Design practice prompts are based on database design exercises by
+          <strong>Ben Brumm</strong> from Database Star. For the original learning
+          material and more database resources, visit
+          <a href="https://www.databasestar.com/vip/" target="_blank" rel="noreferrer">Database Star VIP</a>.
+        </p>
+        <p>
+          Video references are mapped from Caleb Curry's Database Design playlist on
+          YouTube. Open the full playlist
+          <a href="https://www.youtube.com/playlist?list=PLZDOU071E4v6epq3GS0IqZicZc3xwwBN_" target="_blank" rel="noreferrer">here</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="study-footer">
+      <span class="study-footer-mark">
+        <strong>Dev Vault</strong>
+        <span>learn, build, revise, repeat.</span>
+      </span>
+      <span>Aadesh Agrawal</span>
+    </footer>
+
+    <button class="study-scroll-top" type="button" data-scroll-top aria-label="Back to top">
+      <span aria-hidden="true">↑</span>
+    </button>
+
+    <div class="image-lightbox" data-lightbox hidden>
+      <button type="button" data-close-lightbox aria-label="Close diagram">Close</button>
+      <img src="" alt="" data-lightbox-image />
+    </div>
+
+    <div class="study-modal" data-study-modal hidden>
+      <div class="study-modal-backdrop" data-close-study-modal></div>
+      <section class="study-modal-panel" role="dialog" aria-modal="true" aria-label="Study notes">
+        <button class="study-modal-close" type="button" data-close-study-modal>Close</button>
+        <div class="study-modal-content" data-study-modal-content></div>
+      </section>
+    </div>
+
+    <script src="src/data/db-design.js"></script>
+    <script src="src/data/lld-content.js"></script>
+    <script src="src/data/lld-video-references.js"></script>
+    <script src="src/data/spring-boot.js"></script>
+    <script src="src/data/hld-cheatsheet.js"></script>
+    <script src="src/data/course-topics.js"></script>
+    <script src="src/js/dev-vault.js"></script>
+  </body>
+</html>

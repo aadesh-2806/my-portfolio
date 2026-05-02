@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1180" viewBox="0 0 1800 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Approach 1 database design for a movie rental and media library</title>
+  <desc id="desc">A polished table-heavy database design showing catalog, inventory, people, user activity, and lookup tables.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f8fb; }
+      .title { fill: #111827; font: 800 38px Inter, Arial, sans-serif; }
+      .subtitle { fill: #64748b; font: 18px Inter, Arial, sans-serif; }
+      .section { fill: #ffffff; stroke: #d8e0ea; stroke-width: 2; }
+      .sectionTitle { fill: #334155; font: 800 15px Inter, Arial, sans-serif; letter-spacing: 1.5px; text-transform: uppercase; }
+      .table { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; filter: url(#shadow); }
+      .head { fill: #111827; }
+      .headText { fill: #ffffff; font: 800 19px Inter, Arial, sans-serif; }
+      .field { fill: #273549; font: 15px "SFMono-Regular", Consolas, monospace; }
+      .muted { fill: #64748b; font: 14px Inter, Arial, sans-serif; }
+      .pk { fill: #0f766e; font: 800 13px Inter, Arial, sans-serif; letter-spacing: .8px; }
+      .fk { fill: #7c3aed; font: 800 13px Inter, Arial, sans-serif; letter-spacing: .8px; }
+      .line { stroke: #64748b; stroke-width: 2.2; fill: none; marker-end: url(#arrow); opacity: .72; }
+      .softLine { stroke: #94a3b8; stroke-width: 2; fill: none; stroke-dasharray: 7 7; marker-end: url(#arrowSoft); opacity: .58; }
+      .warning { fill: #fff7ed; stroke: #fdba74; stroke-width: 2; }
+      .warningTitle { fill: #9a3412; font: 800 18px Inter, Arial, sans-serif; }
+      .warningText { fill: #7c2d12; font: 16px Inter, Arial, sans-serif; }
+      .badge { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 1.5; }
+      .badgeText { fill: #475569; font: 800 13px Inter, Arial, sans-serif; letter-spacing: .7px; }
+    </style>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowSoft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1800" height="1180"/>
+  <text x="70" y="70" class="title">Approach 1: valid but table-heavy schema</text>
+  <text x="70" y="106" class="subtitle">The model can store the domain, but many composite keys and bridge tables make the design harder to query, explain, and evolve.</text>
+
+  <rect x="70" y="135" width="500" height="390" rx="28" class="section"/>
+  <text x="96" y="168" class="sectionTitle">Core media catalog</text>
+  <rect x="610" y="135" width="520" height="390" rx="28" class="section"/>
+  <text x="636" y="168" class="sectionTitle">Formats, seasons and discs</text>
+  <rect x="1170" y="135" width="560" height="390" rx="28" class="section"/>
+  <text x="1196" y="168" class="sectionTitle">People and classifications</text>
+  <rect x="70" y="575" width="760" height="355" rx="28" class="section"/>
+  <text x="96" y="608" class="sectionTitle">User activity and rental workflow</text>
+  <rect x="870" y="575" width="860" height="355" rx="28" class="section"/>
+  <text x="896" y="608" class="sectionTitle">Lookup tables used across the schema</text>
+
+  <path class="line" d="M360 330 H650"/>
+  <path class="line" d="M860 270 H900"/>
+  <path class="line" d="M755 337 V365"/>
+  <path class="line" d="M995 415 V445"/>
+  <path class="softLine" d="M360 380 C500 475 560 455 650 430"/>
+  <path class="softLine" d="M530 280 C830 135 1220 145 1470 270"/>
+  <path class="line" d="M1420 270 H1470"/>
+  <path class="softLine" d="M360 410 C620 540 1010 535 1210 425"/>
+  <path class="line" d="M330 735 H370"/>
+  <path class="line" d="M580 725 C690 630 780 630 900 310"/>
+  <path class="line" d="M330 795 C360 855 360 870 370 885"/>
+  <path class="line" d="M580 885 H620"/>
+  <path class="softLine" d="M910 760 C735 770 690 805 580 875"/>
+  <path class="softLine" d="M910 735 C730 610 520 520 360 300"/>
+
+  <g transform="translate(110 205)">
+    <rect width="250" height="250" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H234 Q250 0 250 16 V50 H0 Z" class="head"/>
+    <text x="18" y="32" class="headText">Movies</text>
+    <text x="18" y="78" class="pk">PK</text><text x="58" y="78" class="field">Code</text>
+    <text x="18" y="106" class="field">Title, AltTitle</text>
+    <text x="18" y="132" class="field">Plot, Duration</text>
+    <text x="18" y="158" class="fk">FK</text><text x="58" y="158" class="field">Type, Rating</text>
+    <text x="18" y="184" class="fk">FK</text><text x="58" y="184" class="field">Category</text>
+    <text x="18" y="210" class="field">ReleaseYear, Score</text>
+    <text x="18" y="236" class="field">TotalEpisodes</text>
+  </g>
+
+  <g transform="translate(390 215)">
+    <rect width="140" height="132" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H124 Q140 0 140 16 V46 H0 Z" class="head"/>
+    <text x="15" y="30" class="headText">MovieGenres</text>
+    <text x="15" y="75" class="field">MovieCode</text>
+    <text x="15" y="101" class="field">GenreCode</text>
+  </g>
+  <g transform="translate(390 375)">
+    <rect width="140" height="108" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H124 Q140 0 140 16 V46 H0 Z" class="head"/>
+    <text x="15" y="30" class="headText">MovieSeries</text>
+    <text x="15" y="75" class="field">SeriesCode</text>
+    <text x="15" y="101" class="field">MovieCode</text>
+  </g>
+
+  <g transform="translate(650 205)">
+    <rect width="210" height="132" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H194 Q210 0 210 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">MovieFormats</text>
+    <text x="16" y="75" class="field">MovieCode</text>
+    <text x="16" y="101" class="field">FormatCode</text>
+  </g>
+  <g transform="translate(650 365)">
+    <rect width="210" height="128" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H194 Q210 0 210 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">Seasons</text>
+    <text x="16" y="75" class="field">MovieCode</text>
+    <text x="16" y="101" class="field">Format + Season</text>
+  </g>
+  <g transform="translate(900 205)">
+    <rect width="190" height="210" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H174 Q190 0 190 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">MovieDiscs</text>
+    <text x="16" y="75" class="pk">PK</text><text x="56" y="75" class="field">DiscID</text>
+    <text x="16" y="103" class="field">MovieCode</text>
+    <text x="16" y="129" class="field">FormatCode</text>
+    <text x="16" y="155" class="field">SeasonNum</text>
+    <text x="16" y="181" class="field">Status</text>
+  </g>
+  <g transform="translate(900 445)">
+    <rect width="190" height="128" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H174 Q190 0 190 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">Episodes</text>
+    <text x="16" y="75" class="pk">PK</text><text x="56" y="75" class="field">EpisodeID</text>
+    <text x="16" y="101" class="field">Movie + Season</text>
+  </g>
+
+  <g transform="translate(1210 205)">
+    <rect width="210" height="132" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H194 Q210 0 210 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">Persons</text>
+    <text x="16" y="75" class="pk">PK</text><text x="56" y="75" class="field">PersonID</text>
+    <text x="16" y="101" class="field">FirstName, LastName</text>
+  </g>
+  <g transform="translate(1470 205)">
+    <rect width="220" height="178" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H204 Q220 0 220 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">MovieCrews</text>
+    <text x="16" y="75" class="field">MovieCode</text>
+    <text x="16" y="101" class="field">PersonID</text>
+    <text x="16" y="127" class="field">PositionID</text>
+    <text x="16" y="153" class="field">Season/Episode?</text>
+  </g>
+  <g transform="translate(1210 370)">
+    <rect width="210" height="108" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H194 Q210 0 210 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">MovieRelations</text>
+    <text x="16" y="75" class="field">MovieCode</text>
+    <text x="16" y="101" class="field">RelatedMovieCode</text>
+  </g>
+
+  <g transform="translate(110 645)">
+    <rect width="220" height="185" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H204 Q220 0 220 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">Users</text>
+    <text x="16" y="75" class="pk">PK</text><text x="56" y="75" class="field">Username</text>
+    <text x="16" y="103" class="field">Password, Salt</text>
+    <text x="16" y="129" class="field">Email</text>
+    <text x="16" y="155" class="field">RatingPref</text>
+  </g>
+  <g transform="translate(370 645)">
+    <rect width="210" height="158" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H194 Q210 0 210 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">Rents</text>
+    <text x="16" y="75" class="field">DiscID</text>
+    <text x="16" y="101" class="field">UserID</text>
+    <text x="16" y="127" class="field">CheckoutDate</text>
+  </g>
+  <g transform="translate(370 825)">
+    <rect width="210" height="124" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H194 Q210 0 210 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">UserMovies</text>
+    <text x="16" y="75" class="field">MovieCode + User</text>
+    <text x="16" y="101" class="field">Status, CurrentEp</text>
+  </g>
+  <g transform="translate(620 825)">
+    <rect width="165" height="124" rx="16" class="table"/>
+    <path d="M0 16 Q0 0 16 0 H149 Q165 0 165 16 V46 H0 Z" class="head"/>
+    <text x="16" y="30" class="headText">WatchList</text>
+    <text x="16" y="75" class="field">UserID</text>
+    <text x="16" y="101" class="field">Movie + Event</text>
+  </g>
+
+  <g transform="translate(910 645)">
+    <rect width="780" height="220" rx="18" class="table"/>
+    <path d="M0 18 Q0 0 18 0 H762 Q780 0 780 18 V52 H0 Z" class="head"/>
+    <text x="22" y="34" class="headText">Lookup tables</text>
+    <text x="28" y="92" class="field">Formats(Code, Format)</text>
+    <text x="390" y="92" class="field">AudioLangs(Code, Audio)</text>
+    <text x="28" y="122" class="field">Genres(Code, Genre)</text>
+    <text x="390" y="122" class="field">Subtitles(Code, Subtitle)</text>
+    <text x="28" y="152" class="field">Categories(Code, Category)</text>
+    <text x="390" y="152" class="field">Ratings(Code, Value)</text>
+    <text x="28" y="182" class="field">Types(Code, Type)</text>
+    <text x="390" y="182" class="field">Relations(Code, Relation)</text>
+  </g>
+
+  <g transform="translate(70 980)">
+    <rect width="1660" height="105" rx="24" class="warning"/>
+    <text x="28" y="40" class="warningTitle">Why this is considered Approach 1</text>
+    <text x="28" y="72" class="warningText">The schema is valid, but the central relationships are spread across many bridge tables and composite identifiers.</text>
+    <text x="28" y="96" class="warningText">Approach 2 should keep the same business coverage while making ownership, querying, and future changes easier.</text>
+    <g transform="translate(1335 28)">
+      <rect width="260" height="46" rx="23" class="badge"/>
+      <text x="28" y="29" class="badgeText">TABLE-HEAVY FIRST DESIGN</text>
+    </g>
+  </g>
+</svg>

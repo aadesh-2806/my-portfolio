@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="src/styles/portfolio.css" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -29,6 +29,7 @@
         <a href="#github">Repos</a>
         <a href="#leetcode">LeetCode</a>
         <a href="#skills">Skills</a>
+        <a href="devVault.html">Dev Vault</a>
         <a href="#contact">Contact</a>
       </nav>
       <button class="theme-toggle" type="button" aria-label="Toggle color theme">
@@ -448,6 +449,22 @@
         </div>
       </section>
 
+      <section class="section study-link-section" data-reveal>
+        <div>
+          <p class="section-kicker">Dev Vault</p>
+          <h2>Notes and practice material for engineering fundamentals.</h2>
+          <p>
+            A separate learning space for DSA, Spring Boot, DB Design, and System Design.
+            DB Design currently includes case questions, answer diagrams, and study notes.
+          </p>
+        </div>
+        <a class="study-link-card" href="devVault.html" aria-label="Open Dev Vault page">
+          <span>Open</span>
+          <strong>Dev Vault</strong>
+          <small>DB Design active now</small>
+        </a>
+      </section>
+
       <section class="section contact-section" id="contact" data-reveal>
         <p class="section-kicker">10 / Contact</p>
         <h2>Let us build something reliable, fast, and useful.</h2>
@@ -593,6 +610,10 @@
       <a href="#top">Back to top</a>
     </footer>
 
+    <button class="floating-top" type="button" data-floating-top aria-label="Back to top">
+      <span aria-hidden="true">↑</span>
+    </button>
+
     <div class="modal-shell" data-modal hidden>
       <div class="modal-backdrop" data-close-modal></div>
       <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -603,6 +624,7 @@
       </section>
     </div>
 
-    <script src="script.js"></script>
+    <script src="src/data/portfolio-config.js"></script>
+    <script src="src/js/portfolio.js"></script>
   </body>
 </html>
