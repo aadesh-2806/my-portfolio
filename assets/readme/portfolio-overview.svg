@@ -1,0 +1,69 @@
+<svg width="1400" height="760" viewBox="0 0 1400 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07080A"/>
+      <stop offset="0.58" stop-color="#11161A"/>
+      <stop offset="1" stop-color="#202713"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1060 110) rotate(128) scale(520 360)">
+      <stop stop-color="#D9FF65" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#D9FF65" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="70" height="70" patternUnits="userSpaceOnUse">
+      <path d="M70 0H0V70" stroke="#FFF8E8" stroke-opacity="0.055"/>
+    </pattern>
+    <filter id="shadow" x="38" y="56" width="1324" height="650" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#000000" flood-opacity="0.42"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="760" rx="44" fill="url(#bg)"/>
+  <rect width="1400" height="760" rx="44" fill="url(#glow)"/>
+  <rect width="1400" height="760" fill="url(#grid)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="92" y="90" width="1216" height="580" rx="42" fill="#0D100F" stroke="#FFF8E8" stroke-opacity="0.16" stroke-width="2"/>
+
+    <text x="150" y="165" fill="#D9FF65" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="5">PORTFOLIO SYSTEM</text>
+    <text x="150" y="230" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="950">Aadesh Agrawal</text>
+    <text x="150" y="272" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600">Developer portfolio with projects, stats, and study material.</text>
+
+    <g transform="translate(150 342)">
+      <rect width="282" height="192" rx="28" fill="#111512" stroke="#D9FF65" stroke-opacity="0.34"/>
+      <circle cx="58" cy="60" r="30" fill="#D9FF65"/>
+      <text x="44" y="70" fill="#08090B" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="950">AA</text>
+      <text x="32" y="126" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900">Profile</text>
+      <text x="32" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600">Experience, resume</text>
+    </g>
+
+    <g transform="translate(492 342)">
+      <rect width="282" height="192" rx="28" fill="#111512" stroke="#FFF8E8" stroke-opacity="0.16"/>
+      <rect x="32" y="42" width="218" height="14" rx="7" fill="#FFF8E8" fill-opacity="0.18"/>
+      <rect x="32" y="78" width="142" height="14" rx="7" fill="#D9FF65"/>
+      <text x="32" y="126" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900">GitHub</text>
+      <text x="32" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600">Projects, repos</text>
+    </g>
+
+    <g transform="translate(834 342)">
+      <rect width="282" height="192" rx="28" fill="#111512" stroke="#FFF8E8" stroke-opacity="0.16"/>
+      <rect x="32" y="42" width="218" height="16" rx="8" fill="#FFF8E8" fill-opacity="0.14"/>
+      <rect x="32" y="42" width="168" height="16" rx="8" fill="#D9FF65"/>
+      <text x="32" y="126" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900">Coding Stats</text>
+      <text x="32" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600">LeetCode, GFG</text>
+    </g>
+
+    <g transform="translate(1012 126)">
+      <rect width="210" height="146" rx="28" fill="#D9FF65"/>
+      <text x="44" y="78" fill="#08090B" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="950">Dev</text>
+      <text x="44" y="116" fill="#08090B" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="950">Vault</text>
+    </g>
+
+    <path d="M432 438H492" stroke="#D9FF65" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
+    <path d="M774 438H834" stroke="#D9FF65" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1012 272C958 294 914 316 884 342" stroke="#D9FF65" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
+
+    <rect x="150" y="574" width="966" height="36" rx="18" fill="#FFF8E8" fill-opacity="0.08"/>
+    <rect x="150" y="574" width="706" height="36" rx="18" fill="#D9FF65"/>
+    <text x="1126" y="599" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800">Static • Responsive</text>
+  </g>
+</svg>
