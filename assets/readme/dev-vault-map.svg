@@ -1,0 +1,58 @@
+<svg width="1400" height="620" viewBox="0 0 1400 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0B0D"/>
+      <stop offset="1" stop-color="#171D13"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" stroke="#FFF8E8" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+
+  <rect width="1400" height="620" rx="34" fill="url(#bg)"/>
+  <rect width="1400" height="620" fill="url(#grid)"/>
+
+  <text x="90" y="104" fill="#D9FF65" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" letter-spacing="5">DEV VAULT</text>
+  <text x="90" y="168" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="900">Study material organized as an app.</text>
+  <text x="92" y="218" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500">Each subject has progress tracking, topic navigation, search, diagrams, notes, and source credits.</text>
+
+  <g transform="translate(90 300)">
+    <rect width="220" height="190" rx="26" fill="#111512" stroke="#FFF8E8" stroke-opacity="0.16"/>
+    <text x="28" y="58" fill="#D9FF65" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900">DSA</text>
+    <text x="28" y="98" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">Coming soon</text>
+    <text x="28" y="134" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">Patterns and</text>
+    <text x="28" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">revision flow</text>
+  </g>
+
+  <g transform="translate(340 300)">
+    <rect width="220" height="190" rx="26" fill="#111512" stroke="#D9FF65" stroke-opacity="0.28"/>
+    <text x="28" y="58" fill="#D9FF65" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900">SPRING BOOT</text>
+    <text x="28" y="98" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">Backend path</text>
+    <text x="28" y="134" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">REST, JPA, MVC,</text>
+    <text x="28" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">Security, AOP</text>
+  </g>
+
+  <g transform="translate(590 300)">
+    <rect width="220" height="190" rx="26" fill="#111512" stroke="#D9FF65" stroke-opacity="0.28"/>
+    <text x="28" y="58" fill="#D9FF65" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900">DB DESIGN</text>
+    <text x="28" y="98" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">Case studies</text>
+    <text x="28" y="134" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">Problems, diagrams,</text>
+    <text x="28" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">answers, videos</text>
+  </g>
+
+  <g transform="translate(840 300)">
+    <rect width="220" height="190" rx="26" fill="#111512" stroke="#D9FF65" stroke-opacity="0.28"/>
+    <text x="28" y="58" fill="#D9FF65" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900">LLD</text>
+    <text x="28" y="98" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">Design skills</text>
+    <text x="28" y="134" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">Basics, patterns,</text>
+    <text x="28" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">machine coding</text>
+  </g>
+
+  <g transform="translate(1090 300)">
+    <rect width="220" height="190" rx="26" fill="#111512" stroke="#D9FF65" stroke-opacity="0.28"/>
+    <text x="28" y="58" fill="#D9FF65" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900">HLD</text>
+    <text x="28" y="98" fill="#FFF8E8" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="900">Cheat sheet</text>
+    <text x="28" y="134" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">Scale, storage,</text>
+    <text x="28" y="158" fill="#BDB6A7" font-family="Inter, Arial, sans-serif" font-size="16">reliability</text>
+  </g>
+</svg>

@@ -568,9 +568,18 @@ function renderRepoDetail(repo) {
       <section class="repo-readme-card">
         <div class="repo-section-head">
           <p class="label">README</p>
-          <span data-readme-status>Loading README...</span>
+          <span data-readme-status>Checking...</span>
         </div>
-        <div class="readme-content" data-readme-content></div>
+        <div class="readme-content readme-redirect-card">
+          <h2>Open the README on GitHub</h2>
+          <p>
+            GitHub renders README images, screenshots, relative links, and badges correctly.
+            Open the source README instead of showing raw markdown here.
+          </p>
+          <a class="button primary" href="${escapeHtml(repo.html_url)}#readme" target="_blank" rel="noreferrer" data-readme-link>
+            Open README
+          </a>
+        </div>
       </section>
       <aside class="repo-side-card">
         <div class="repo-section-head">
@@ -595,22 +604,9 @@ function renderRepoDetail(repo) {
   `;
 }
 
-function renderReadmeMarkdown(markdown = "") {
-  const safe = escapeHtml(markdown.trim() || "README not available.");
-  return safe
-    .replace(/^### (.*)$/gm, "<h4>$1</h4>")
-    .replace(/^## (.*)$/gm, "<h3>$1</h3>")
-    .replace(/^# (.*)$/gm, "<h2>$1</h2>")
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/^\- (.*)$/gm, "<li>$1</li>")
-    .replace(/\n{2,}/g, "</p><p>")
-    .replace(/\n/g, "<br>");
-}
-
 async function hydrateRepoDetail(repo) {
-  const readmeEl = document.querySelector("[data-readme-content]");
   const readmeStatus = document.querySelector("[data-readme-status]");
+  const readmeLink = document.querySelector("[data-readme-link]");
   const filesEl = document.querySelector("[data-repo-files]");
   const filesStatus = document.querySelector("[data-files-status]");
   const languagesEl = document.querySelector("[data-repo-languages]");
@@ -620,13 +616,15 @@ async function hydrateRepoDetail(repo) {
     const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${repo.name}/readme`, { headers });
     if (!response.ok) throw new Error("README missing");
     const readme = await response.json();
-    const textResponse = await fetch(readme.download_url);
-    const markdown = await textResponse.text();
-    readmeEl.innerHTML = renderReadmeMarkdown(markdown);
-    readmeStatus.textContent = "Loaded";
+    if (readmeLink && readme.html_url) {
+      readmeLink.href = readme.html_url;
+    }
+    readmeStatus.textContent = "Open on GitHub";
   } catch {
-    readmeEl.innerHTML = "<p>README is not available for this repository.</p>";
-    readmeStatus.textContent = "Not found";
+    if (readmeLink) {
+      readmeLink.href = `${repo.html_url}#readme`;
+    }
+    readmeStatus.textContent = "Repository page";
   }
 
   try {

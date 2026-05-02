@@ -1984,10 +1984,40 @@ h3 {
 }
 
 .readme-content {
-  max-height: 620px;
-  overflow: auto;
-  padding-right: 8px;
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
   color: var(--muted);
+}
+
+.readme-redirect-card {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+  min-height: 260px;
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 92% 10%, rgba(198, 255, 61, 0.12), transparent 18rem),
+    rgba(255, 255, 255, 0.035);
+}
+
+.readme-redirect-card h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+}
+
+.readme-redirect-card p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.readme-redirect-card .button {
+  width: fit-content;
 }
 
 .readme-content h2,
