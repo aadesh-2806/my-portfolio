@@ -1,35 +1,41 @@
 const root = document.documentElement;
 const themeToggle = document.querySelector(".theme-toggle");
-const storedTheme = localStorage.getItem("portfolio-theme");
+const sharedThemeKey = "site-theme";
+const legacyPortfolioThemeKey = "portfolio-theme";
+const legacyStudyThemeKey = "study-theme-v1";
+const storedTheme =
+  localStorage.getItem(sharedThemeKey) ||
+  localStorage.getItem(legacyPortfolioThemeKey) ||
+  localStorage.getItem(legacyStudyThemeKey);
 const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 
-const GITHUB_USER = "aadesh-2806";
-const LEETCODE_USER = "aadesh2806";
-const GFG_USER = "2019uec1660";
-const LEETCODE_TARGET = 1000;
+const portfolioConfig = window.PORTFOLIO_CONFIG || {};
+const GITHUB_USER = portfolioConfig.githubUser || "aadesh-2806";
+const LEETCODE_USER = portfolioConfig.leetcodeUser || "aadesh2806";
+const GFG_USER = portfolioConfig.gfgUser || "2019uec1660";
+const LEETCODE_TARGET = portfolioConfig.leetcodeTarget || 1000;
 const calendarCache = new Map();
 let fullCalendarCache = null;
-const FEATURED_REPO_HINTS = ["book", "product-ui", "productui", "starbuck", "starbucks"];
-const HIDDEN_REPO_PATTERNS = [
-  "js-attributes",
-  "coding-question",
-  "coding-questions",
-  "aadesh-2806",
-  "config",
-  "github-profile",
-  "profile-readme",
-  "my-portfolio",
-];
+const FEATURED_REPO_HINTS = portfolioConfig.featuredRepoHints || [];
+const HIDDEN_REPO_PATTERNS = portfolioConfig.hiddenRepoPatterns || [];
 
-root.dataset.theme = storedTheme || preferredTheme;
+function persistTheme(theme) {
+  localStorage.setItem(sharedThemeKey, theme);
+  localStorage.setItem(legacyPortfolioThemeKey, theme);
+  localStorage.setItem(legacyStudyThemeKey, theme);
+}
+
+root.dataset.theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : preferredTheme;
+persistTheme(root.dataset.theme);
 
 themeToggle?.addEventListener("click", () => {
   const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
   root.dataset.theme = nextTheme;
-  localStorage.setItem("portfolio-theme", nextTheme);
+  persistTheme(nextTheme);
 });
 
 const revealItems = document.querySelectorAll("[data-reveal]");
+const floatingTopButton = document.querySelector("[data-floating-top]");
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -49,12 +55,28 @@ revealItems.forEach((item, index) => {
 
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (event) => {
+    if (link.getAttribute("href") === "#top") {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const target = document.querySelector(link.getAttribute("href"));
     if (!target) return;
     event.preventDefault();
     target.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
+
+function updateFloatingTopButton() {
+  floatingTopButton?.classList.toggle("is-visible", window.scrollY > 260);
+}
+
+floatingTopButton?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+window.addEventListener("scroll", updateFloatingTopButton, { passive: true });
+updateFloatingTopButton();
 
 const modal = document.querySelector("[data-modal]");
 const modalContent = document.querySelector("[data-modal-content]");
