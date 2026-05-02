@@ -1,5 +1,8 @@
 const cases = window.DB_DESIGN_ITEMS || [];
 const studyHome = document.querySelector("[data-study-home]");
+const studyHeader = document.querySelector(".study-header");
+const studyNavToggle = document.querySelector("[data-study-nav-toggle]");
+const studyNav = document.querySelector(".study-nav");
 const courseButtons = document.querySelectorAll("[data-course]");
 const progressRows = document.querySelectorAll("[data-progress-course]");
 const courseViews = document.querySelectorAll("[data-course-view]");
@@ -10,6 +13,8 @@ const searchEl = document.querySelector("[data-study-search]");
 const modeButtons = document.querySelectorAll("[data-view-mode]");
 const combinedPopupButton = document.querySelector("[data-combined-popup]");
 const dbViewSwitch = document.querySelector("[data-db-view-switch]");
+const dbWorkspace = document.querySelector("[data-db-workspace]");
+const dbCaseToggle = document.querySelector("[data-db-case-toggle]");
 const lightbox = document.querySelector("[data-lightbox]");
 const lightboxImage = document.querySelector("[data-lightbox-image]");
 const studyModal = document.querySelector("[data-study-modal]");
@@ -79,6 +84,24 @@ function renderBackButton(attributes = "", label = "Back") {
       </button>
     </div>
   `;
+}
+
+function closeStudyNav() {
+  studyHeader?.classList.remove("is-nav-open");
+  studyNavToggle?.setAttribute("aria-expanded", "false");
+  studyNavToggle?.setAttribute("aria-label", "Open navigation");
+}
+
+function closeSubjectMenus(scope = document) {
+  scope.querySelectorAll(".subject-tabs-wrap.is-open").forEach((menu) => {
+    menu.classList.remove("is-open");
+    menu.querySelector("[data-subject-menu-toggle]")?.setAttribute("aria-expanded", "false");
+  });
+}
+
+function closeDbCaseMenu() {
+  dbWorkspace?.classList.remove("is-case-menu-open");
+  dbCaseToggle?.setAttribute("aria-expanded", "false");
 }
 
 function applyTheme(theme) {
@@ -337,10 +360,8 @@ function renderLldProblemQuestionPanel(topic) {
 
   return `
     <section class="question-panel">
-      <div class="panel-title">
-        <h4>Problem</h4>
-      </div>
       <div class="question-card">
+        <p class="eyebrow">Problem statement</p>
         <h4>${escapeHtml(`Design ${topic.title}`)}</h4>
         <p>${escapeHtml(topic.description)}</p>
       </div>
@@ -643,12 +664,14 @@ function renderCaseList() {
   listEl.querySelectorAll("[data-case-id]").forEach((card) => {
     card.addEventListener("click", () => {
       activeId = card.dataset.caseId;
+      closeDbCaseMenu();
       render();
     });
     card.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         activeId = card.dataset.caseId;
+        closeDbCaseMenu();
         render();
       }
     });
@@ -664,10 +687,12 @@ function renderCaseList() {
 }
 
 function renderCaseDetail() {
-  const dbWorkspace = document.querySelector("[data-db-workspace]");
   const hasSelection = Boolean(activeId);
   dbWorkspace?.classList.toggle("has-selection", hasSelection);
   dbWorkspace?.classList.toggle("is-menu-only", !hasSelection);
+  if (!hasSelection) {
+    closeDbCaseMenu();
+  }
 
   if (!hasSelection) {
     detailEl.hidden = true;
@@ -886,17 +911,24 @@ function renderCombinedPopup() {
 }
 
 function renderSpringTabs(activeSectionId = "") {
+  const activeLabel = getSpringSections().find((section) => section.id === activeSectionId)?.title || "Sections";
   return `
-    <div class="spring-section-tabs" aria-label="Spring Boot modules">
-      ${getSpringSections()
-        .map(
-          (section) => `
-            <button class="${section.id === activeSectionId ? "is-active" : ""}" type="button" data-spring-section="${escapeHtml(section.id)}">
-              ${escapeHtml(section.title)}
-            </button>
-          `
-        )
-        .join("")}
+    <div class="subject-tabs-wrap">
+      <button class="subject-tabs-toggle" type="button" data-subject-menu-toggle aria-expanded="false">
+        <span aria-hidden="true"></span>
+        ${escapeHtml(activeLabel)}
+      </button>
+      <div class="spring-section-tabs" aria-label="Spring Boot modules">
+        ${getSpringSections()
+          .map(
+            (section) => `
+              <button class="${section.id === activeSectionId ? "is-active" : ""}" type="button" data-spring-section="${escapeHtml(section.id)}">
+                ${escapeHtml(section.title)}
+              </button>
+            `
+          )
+          .join("")}
+      </div>
     </div>
   `;
 }
@@ -917,7 +949,6 @@ function renderSpringHome() {
         </p>
       </div>
     </div>
-    ${renderSpringTabs("")}
     <div class="spring-section-grid">
       ${sections
         .map((section) => {
@@ -1097,17 +1128,24 @@ function renderSpringBoot() {
 
 function renderLldTabs(activeSectionId = "") {
   const sections = getLldSections();
+  const activeLabel = sections.find((section) => section.id === activeSectionId)?.title || "Sections";
   return `
-    <div class="lld-section-tabs" aria-label="LLD sections">
-      ${sections
-        .map(
-          (section) => `
-            <button class="${section.id === activeSectionId ? "is-active" : ""}" type="button" data-lld-section="${escapeHtml(section.id)}">
-              ${escapeHtml(section.title)}
-            </button>
-          `
-        )
-        .join("")}
+    <div class="subject-tabs-wrap">
+      <button class="subject-tabs-toggle" type="button" data-subject-menu-toggle aria-expanded="false">
+        <span aria-hidden="true"></span>
+        ${escapeHtml(activeLabel)}
+      </button>
+      <div class="lld-section-tabs" aria-label="LLD sections">
+        ${sections
+          .map(
+            (section) => `
+              <button class="${section.id === activeSectionId ? "is-active" : ""}" type="button" data-lld-section="${escapeHtml(section.id)}">
+                ${escapeHtml(section.title)}
+              </button>
+            `
+          )
+          .join("")}
+      </div>
     </div>
   `;
 }
@@ -1169,7 +1207,6 @@ function renderLldHome() {
         </p>
       </div>
     </div>
-    ${renderLldTabs("")}
     <div class="lld-section-grid">
       ${sections
         .map((section) => {
@@ -1399,17 +1436,29 @@ function renderHldCheatSheet() {
       </div>
     </div>
 
-    <nav class="hld-section-tabs" aria-label="HLD sections">
-      <button class="${activeHldSection === "cheatsheet" ? "is-active" : ""}" type="button" data-hld-section="cheatsheet">
-        Cheat Sheet
-      </button>
-      <button class="${activeHldSection === "concepts" ? "is-active" : ""}" type="button" data-hld-section="concepts">
-        Concepts
-      </button>
-      <button class="${activeHldSection === "problems" ? "is-active" : ""}" type="button" data-hld-section="problems">
-        Problems
-      </button>
-    </nav>
+    ${
+      activeHldSection === "home"
+        ? ""
+        : `
+          <div class="subject-tabs-wrap">
+            <button class="subject-tabs-toggle" type="button" data-subject-menu-toggle aria-expanded="false">
+              <span aria-hidden="true"></span>
+              ${escapeHtml(activeHldTrack?.title || "Sections")}
+            </button>
+            <nav class="hld-section-tabs" aria-label="HLD sections">
+              <button class="${activeHldSection === "cheatsheet" ? "is-active" : ""}" type="button" data-hld-section="cheatsheet">
+                Cheat Sheet
+              </button>
+              <button class="${activeHldSection === "concepts" ? "is-active" : ""}" type="button" data-hld-section="concepts">
+                Concepts
+              </button>
+              <button class="${activeHldSection === "problems" ? "is-active" : ""}" type="button" data-hld-section="problems">
+                Problems
+              </button>
+            </nav>
+          </div>
+        `
+    }
 
     ${
       activeHldSection === "home"
@@ -1543,6 +1592,7 @@ springRoot?.addEventListener("click", (event) => {
 
   const sectionButton = event.target.closest("[data-spring-section]");
   if (sectionButton) {
+    closeSubjectMenus(springRoot);
     activeSpringSection = sectionButton.dataset.springSection;
     activeSpringTopic = "";
     renderSpringSection(activeSpringSection);
@@ -1616,6 +1666,7 @@ lldRoot?.addEventListener("click", (event) => {
 
   const sectionButton = event.target.closest("[data-lld-section]");
   if (sectionButton) {
+    closeSubjectMenus(lldRoot);
     activeLldSection = sectionButton.dataset.lldSection;
     activeLldTopic = "";
     lldSearchQuery = "";
@@ -1664,6 +1715,7 @@ lldRoot?.addEventListener("keydown", (event) => {
 hldRoot?.addEventListener("click", (event) => {
   const sectionButton = event.target.closest("[data-hld-section]");
   if (sectionButton) {
+    closeSubjectMenus(hldRoot);
     activeHldSection = sectionButton.dataset.hldSection;
     hldSearchQuery = "";
     renderHldCheatSheet();
@@ -1747,7 +1799,25 @@ function showCourse(course) {
 }
 
 courseButtons.forEach((button) => {
-  button.addEventListener("click", () => showCourse(button.dataset.course));
+  button.addEventListener("click", () => {
+    closeStudyNav();
+    showCourse(button.dataset.course);
+  });
+});
+
+studyNavToggle?.addEventListener("click", () => {
+  const isOpen = studyHeader?.classList.toggle("is-nav-open");
+  studyNavToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  studyNavToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+});
+
+studyNav?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", closeStudyNav);
+});
+
+dbCaseToggle?.addEventListener("click", () => {
+  const isOpen = dbWorkspace?.classList.toggle("is-case-menu-open");
+  dbCaseToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
 });
 
 progressRows.forEach((row) => {
@@ -1761,7 +1831,30 @@ progressRows.forEach((row) => {
 
 document.addEventListener("click", (event) => {
   if (!event.target.closest("[data-study-home-link]")) return;
+  closeStudyNav();
   showCourse("home");
+});
+
+document.addEventListener("click", (event) => {
+  const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+  const subjectToggle = target?.closest("[data-subject-menu-toggle]");
+  if (subjectToggle) {
+    const menu = subjectToggle.closest(".subject-tabs-wrap");
+    const isOpen = menu?.classList.toggle("is-open");
+    subjectToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+    return;
+  }
+
+  if (target?.closest(".study-header")) return;
+  closeStudyNav();
+
+  if (!target?.closest(".subject-tabs-wrap")) {
+    closeSubjectMenus();
+  }
+
+  if (!target?.closest("[data-db-workspace]")) {
+    closeDbCaseMenu();
+  }
 });
 
 function updateScrollTopButton() {

@@ -24,7 +24,7 @@
         <span>DV</span>
         Dev Vault
       </button>
-      <nav class="study-nav" aria-label="Study sections">
+      <nav class="study-nav" id="study-menu" aria-label="Study sections">
         <a href="index.html">Portfolio</a>
         <button type="button" data-course="dsa">DSA</button>
         <button type="button" data-course="springboot">Spring Boot</button>
@@ -32,6 +32,9 @@
         <button type="button" data-course="lld">LLD</button>
         <button type="button" data-course="hld">HLD</button>
       </nav>
+      <button class="study-nav-toggle" type="button" data-study-nav-toggle aria-label="Open navigation" aria-controls="study-menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+      </button>
       <button class="study-theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode">
         <span class="sun" aria-hidden="true"></span>
         <span class="moon" aria-hidden="true"></span>
@@ -150,6 +153,10 @@
           <label class="search-box">
             <input type="search" placeholder="Search Instagram, ecommerce, booking..." data-study-search />
           </label>
+          <button class="db-case-toggle" type="button" data-db-case-toggle aria-expanded="false">
+            <span aria-hidden="true"></span>
+            Cases
+          </button>
           <div class="view-switch" aria-label="Solution visibility" data-db-view-switch>
             <button class="is-active" type="button" data-view-mode="question">Problem</button>
             <button type="button" data-view-mode="answer">Solution</button>

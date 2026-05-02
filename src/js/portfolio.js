@@ -1,5 +1,8 @@
 const root = document.documentElement;
 const themeToggle = document.querySelector(".theme-toggle");
+const siteHeader = document.querySelector(".site-header");
+const navToggle = document.querySelector("[data-nav-toggle]");
+const navLinks = document.querySelector(".nav-links");
 const sharedThemeKey = "site-theme";
 const legacyPortfolioThemeKey = "portfolio-theme";
 const legacyStudyThemeKey = "study-theme-v1";
@@ -32,6 +35,28 @@ themeToggle?.addEventListener("click", () => {
   const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
   root.dataset.theme = nextTheme;
   persistTheme(nextTheme);
+});
+
+function closePortfolioNav() {
+  siteHeader?.classList.remove("is-nav-open");
+  navToggle?.setAttribute("aria-expanded", "false");
+  navToggle?.setAttribute("aria-label", "Open navigation");
+}
+
+navToggle?.addEventListener("click", () => {
+  const isOpen = siteHeader?.classList.toggle("is-nav-open");
+  navToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  navToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+});
+
+navLinks?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", closePortfolioNav);
+});
+
+document.addEventListener("click", (event) => {
+  if (!siteHeader?.classList.contains("is-nav-open")) return;
+  if (event.target.closest(".site-header")) return;
+  closePortfolioNav();
 });
 
 const revealItems = document.querySelectorAll("[data-reveal]");
